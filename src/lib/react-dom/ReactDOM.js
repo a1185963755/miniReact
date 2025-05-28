@@ -1,8 +1,19 @@
+/*
+ * @description:
+ * @param:
+ * @return:
+ * @Date: 2025-05-27 21:48:18
+ */
 import { createFiber } from "../reconciler/ReactFiber";
+import { scheduleUpdateOnFiber } from "../reconciler/ReactFiberWorkLoop";
 
 function updateContainer(element, container) {
-  const fiber = createFiber(element, container);
+  const fiber = createFiber(element, {
+    type: container.nodeName.toLowerCase(),
+    stateNode: container,
+  });
   console.log("-> ~ updateContainer ~ fiber:", fiber);
+  scheduleUpdateOnFiber(fiber);
 }
 
 class ReactDOMRoot {
