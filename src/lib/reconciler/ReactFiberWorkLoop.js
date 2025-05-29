@@ -1,3 +1,5 @@
+import { beginWork } from "./ReactFiberBeginWork";
+
 let wip = null;
 let wipRoot = null;
 
@@ -45,9 +47,7 @@ function performUnitOfWork() {
   // 如果没有兄弟节点，说明当前 fiber 已经处理完了
   wip = null; // 重置 wip，表示当前没有正在处理的 fiber
 }
-function beginWork(fiber) {
-  console.log("-> ~ beginWork ~ beginWork:", fiber);
-}
+
 function completeWork(fiber) {
   console.log("-> ~ completeWork ~ completeWork:", fiber);
 }

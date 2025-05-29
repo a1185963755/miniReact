@@ -45,3 +45,55 @@ export function isFn(fn) {
 export function isUndefined(s) {
   return s === undefined;
 }
+
+export function updateNode(node, prevVal, nextVal) {
+  console.log(
+    "-> ~ updateNode ~ node, prevVal, nextVal:",
+    node,
+    prevVal,
+    nextVal
+  );
+  // 这里其实要做的事情就分为两个部分：
+  // 1. 对旧值的处理
+  // 2. 对新值的处理
+
+  Object.keys(prevVal).forEach((key) => {
+    if (key === "children") {
+      // 如果 children 是字符串，说明是文本节点
+      if (isStr(prevVal[key])) {
+        node.textContent = "";
+      }
+    } else if (key.startsWith("on")) {
+      // 如果是事件处理函数，则需要移除事件监听
+      const eventName = key.toLowerCase().slice(2);
+      if (eventName === "change") {
+        eventName = "input";
+      }
+      node.removeEventListener(eventName, prevVal[key]);
+    } else {
+      // 如果新值中没有这个属性，则需要删除旧值中的属性
+      if (!(key in nextVal)) {
+        node[key] = "";
+      }
+    }
+  });
+
+  // 2. 对新值的处理
+  Object.keys(nextVal).forEach((key) => {
+    if (key === "children") {
+      // 如果 children 是字符串，说明是文本节点
+      if (isStr(nextVal[key])) {
+        node.textContent = nextVal[key];
+      }
+    } else if (key.startsWith("on")) {
+      // 如果是事件处理函数，则需要移除事件监听
+      let eventName = key.toLowerCase().slice(2);
+      if (eventName === "change") {
+        eventName = "input";
+      }
+      node.addEventListener(eventName, prevVal[key]);
+    } else {
+      node[key] = nextVal[key];
+    }
+  });
+}
