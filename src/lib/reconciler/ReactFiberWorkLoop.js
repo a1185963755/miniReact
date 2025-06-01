@@ -1,4 +1,12 @@
+/*
+ * @description:
+ * @param:
+ * @return:
+ * @Date: 2025-05-28 21:33:53
+ */
 import { beginWork } from "./ReactFiberBeginWork";
+import commitWorker from "./ReactFiberCommitWork";
+
 
 let wip = null;
 let wipRoot = null;
@@ -49,8 +57,10 @@ function performUnitOfWork() {
 }
 
 function completeWork(fiber) {
-  console.log("-> ~ completeWork ~ completeWork:", fiber);
+  // console.log("-> ~ completeWork ~ completeWork:", fiber);
 }
 function commitRoot() {
-  console.log("-> ~ commitRoot ~ commitRoot:", "commitRoot");
+  commitWorker(wipRoot);
+  // 渲染完成后将 wipRoot 置为 null
+  wipRoot = null;
 }
