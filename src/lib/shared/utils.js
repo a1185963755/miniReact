@@ -45,14 +45,10 @@ export function isFn(fn) {
 export function isUndefined(s) {
   return s === undefined;
 }
-
+export function isArray(arr) {
+  return Array.isArray(arr);
+}
 export function updateNode(node, prevVal, nextVal) {
-  console.log(
-    "-> ~ updateNode ~ node, prevVal, nextVal:",
-    node,
-    prevVal,
-    nextVal
-  );
   // 这里其实要做的事情就分为两个部分：
   // 1. 对旧值的处理
   // 2. 对新值的处理

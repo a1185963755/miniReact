@@ -13,5 +13,5 @@ root.render(<div id="oDiv" className="test" onChange={() => { console.log('chang
     <li>香蕉</li>
     <li>西瓜</li>
   </ul>
-  <span>1111</span>
+  1111
 </div>)

@@ -12,7 +12,6 @@ function updateContainer(element, container) {
     type: container.nodeName.toLowerCase(),
     stateNode: container,
   });
-  console.log("-> ~ updateContainer ~ fiber:", fiber);
   scheduleUpdateOnFiber(fiber);
 }
 
@@ -23,7 +22,6 @@ class ReactDOMRoot {
   }
 
   render(element) {
-    console.log("-> ~ ReactDOMRoot ~ render ~ element:", element);
     updateContainer(element, this._internalRoot);
   }
 }
