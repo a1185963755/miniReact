@@ -1,6 +1,8 @@
 import {
   updateHostComponent,
   updateHostTextComponent,
+  updateFunctionComponent,
+  updateClassComponent,
 } from "./ReactFiberReconciler";
 import {
   FunctionComponent,
@@ -21,10 +23,10 @@ export function beginWork(fiber) {
       updateHostTextComponent(fiber);
       break;
     case FunctionComponent:
-      // updateFunctionComponent(fiber);
+      updateFunctionComponent(fiber);
       break;
     case ClassComponent:
-      // updateClassComponent(fiber);
+      updateClassComponent(fiber);
       break;
     case Fragment:
       // updateFragment(fiber);

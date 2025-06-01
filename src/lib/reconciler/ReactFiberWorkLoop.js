@@ -7,7 +7,6 @@
 import { beginWork } from "./ReactFiberBeginWork";
 import commitWorker from "./ReactFiberCommitWork";
 
-
 let wip = null;
 let wipRoot = null;
 
