@@ -24,8 +24,8 @@ export const Deletion = 0b0000000000000000001000; // 8
  * @param {*} s
  * @returns
  */
-export function isStr(s) {
-  return typeof s === "string";
+export function isStrOrNum(s) {
+  return typeof s === "string" || typeof s === "number";
 }
 
 /**
@@ -56,7 +56,7 @@ export function updateNode(node, prevVal, nextVal) {
   Object.keys(prevVal).forEach((key) => {
     if (key === "children") {
       // 如果 children 是字符串，说明是文本节点
-      if (isStr(prevVal[key])) {
+      if (isStrOrNum(prevVal[key])) {
         node.textContent = "";
       }
     } else if (key.startsWith("on")) {
@@ -78,7 +78,7 @@ export function updateNode(node, prevVal, nextVal) {
   Object.keys(nextVal).forEach((key) => {
     if (key === "children") {
       // 如果 children 是字符串，说明是文本节点
-      if (isStr(nextVal[key])) {
+      if (isStrOrNum(nextVal[key])) {
         node.textContent = nextVal[key];
       }
     } else if (key.startsWith("on")) {
@@ -87,7 +87,7 @@ export function updateNode(node, prevVal, nextVal) {
       if (eventName === "change") {
         eventName = "input";
       }
-      node.addEventListener(eventName, prevVal[key]);
+      node.addEventListener(eventName, nextVal[key]);
     } else {
       node[key] = nextVal[key];
     }

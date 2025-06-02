@@ -4,6 +4,8 @@
  * @return:
  * @Date: 2025-06-01 16:25:37
  */
+import { Placement, Update, updateNode } from "../shared/utils";
+
 function getParentDOM(wip) {
   let temp = wip;
   while (temp) {
@@ -19,9 +21,17 @@ function getParentDOM(wip) {
 function commitNode(wip) {
   // 1. 首先第一步，我们需要获取该 fiber 所对应的父节点的 DOM 对象
   const parentNodeDOM = getParentDOM(wip.return);
-  // 2. 进行一个 DOM 操作
-  if (wip.stateNode) {
+
+  // 从 fiber 对象上面拿到 flags 和 stateNode
+  const { flag, stateNode } = wip;
+  // 接下来我们需要根据不同的 flags 做不同的操作
+  if (flag & Placement && stateNode) {
     parentNodeDOM.appendChild(wip.stateNode);
+  }
+
+  if (flag & Update && stateNode) {
+    // 这里就应该是更新属性的操作了
+    updateNode(stateNode, wip.alternate.props, wip.props);
   }
 }
 

@@ -1,4 +1,4 @@
-import { isStr, isArray, Update } from "../shared/utils";
+import { isStrOrNum, isArray, Update } from "../shared/utils";
 import { createFiber } from "./ReactFiber";
 import {
   sameNode,
@@ -16,7 +16,7 @@ import {
 export function reconcileChildren(returnFiber, children) {
   // 如果 children 是一个字符串，那么说明这是一个文本节点
   // 那么这个文本节点我们已经在 updateNode 方法中处理过了，所以这里就不需要再处理了
-  if (isStr(children)) return;
+  if (isStrOrNum(children)) return;
 
   // 接下来需要做一些准备工作
   // 如果只有一个子节点，那么 children 就是一个 vnode 对象
@@ -94,7 +94,7 @@ export function reconcileChildren(returnFiber, children) {
     Object.assign(newFiber, {
       stateNode: oldFiber.stateNode,
       alternate: oldFiber,
-      flags: Update,
+      flag: Update,
     });
 
     // 更新 lastPlacedIndex 的值
@@ -188,7 +188,7 @@ export function reconcileChildren(returnFiber, children) {
       Object.assign(newFiber, {
         stateNode: matchedFiber.stateNode,
         alternate: matchedFiber,
-        flags: Update,
+        flag: Update,
       });
       // 删除哈希表中的旧 fiber
       existingChildren.delete(newFiber.key || newFiber.index);

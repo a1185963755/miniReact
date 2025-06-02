@@ -49,7 +49,7 @@ export function placeChild(
     const oldIndex = current.index;
     if (oldIndex < lastPlacedIndex) {
       // 说明当前的节点是需要移动的
-      newFiber.flags |= Placement;
+      newFiber.flag |= Placement;
       return lastPlacedIndex;
     } else {
       // 进入此分支，说明 oldIndex 应该作为最新的 lastPlacedIndex
@@ -57,7 +57,7 @@ export function placeChild(
     }
   } else {
     // 进入此分支，说明当前的 fiber 是初次渲染
-    newFiber.flags |= Placement;
+    newFiber.flag |= Placement;
     return lastPlacedIndex;
   }
 }

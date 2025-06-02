@@ -1,40 +1,44 @@
+/*
+ * @description: 
+ * @param: 
+ * @return: 
+ * @Date: 2025-05-27 21:42:39
+ */
 import React from "./lib/react/React";
+import { useState } from "./lib/react/ReactHooks";
 
 
-// function App({id}) {
+function App({ id }) {
+  // 定义一个状态 count，以及修改状态的方法 setCount
+  const [count, setCount] = useState(3);
 
-//   return (
-//     <div id={id} >
-//       <h1>Vite + React</h1>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </div>
-//   )
-// }
+  const handleDecrement = () => {
+    setCount(count- 1);
+  };
 
-
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div className="container" id={this.props.id}>
-        <div className="one">
-          <div className="two">
-            <p>1111</p>
-            <p>2222</p>
-          </div>
-          <div className="three">
-            <p>3333</p>
-            <p>4444</p>
-          </div>
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+  return (
+    <div className="container" id={id}>
+      <div className="one">
+        <div className="two">
+          <p>1</p>
+          <p>2</p>
         </div>
-        <p>this is a test!!!</p>
+        <div className="three">
+          <p>3</p>
+          <p>4</p>
+        </div>
       </div>
-    );
-  }
+      <p>this is a tes1</p>
+      <div>
+        <button onClick={handleDecrement}>-</button>
+        <span>{count}</span>
+        <button onClick={handleIncrement}>+</button>
+      </div>
+    </div>
+  );
 }
 
 export default App

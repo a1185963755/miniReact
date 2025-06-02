@@ -4,7 +4,7 @@
  * @return:
  * @Date: 2025-05-27 21:59:03
  */
-import { Placement, isStr, isFn, isUndefined } from "../shared/utils";
+import { Placement, isStrOrNum, isFn, isUndefined } from "../shared/utils";
 import {
   FunctionComponent,
   ClassComponent,
@@ -40,7 +40,7 @@ export function createFiber(vnode, retrunFiber) {
   // 实际上 fiber 对象上面还有一个 tag 值
   // 这个 tag 值是什么取决于 fiber 的 type 值
   // 不同的 vnode 类型，type 是有所不同的
-  if (isStr(type)) {
+  if (isStrOrNum(type)) {
     fiber.tag = HostComponent;
   } else if (isFn(type)) {
     // 函数组件
