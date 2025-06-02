@@ -4,24 +4,24 @@
  * @return:
  * @Date: 2025-05-28 21:33:53
  */
+import scheduleCallback from "../scheduler/Scheduler";
 import { beginWork } from "./ReactFiberBeginWork";
 import commitWorker from "./ReactFiberCommitWork";
-
 let wip = null;
 let wipRoot = null;
 
 export function scheduleUpdateOnFiber(fiber) {
   wip = fiber;
   wipRoot = fiber;
-  requestIdleCallback(workLoop);
+  scheduleCallback(workLoop);
 }
 
-function workLoop(deadline) {
-  while (wip && deadline.timeRemaining() > 0) {
-    //有剩余时间，继续处理fiber,进入reconciler阶段
+function workLoop(time) {
+  while (wip) {
+    if (time <= 0) return false;
     performUnitOfWork();
   }
-  if (!wip) {
+  if (!wip && wipRoot) {
     // 说明整个 fiber 树都处理完了
     // 我们需要将 wipRoot 提交到 DOM 节点上
     commitRoot();
